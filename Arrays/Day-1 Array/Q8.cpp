@@ -14,3 +14,52 @@ Output: [2,3]
 </aside>
 
 */
+
+// Solution
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> findDuplicateAndMissingNumber(vector<int> nums)
+{
+    int n = nums.size();
+
+    vector<bool> present(n + 1, false);
+
+    for (int i = 0; i < n; i++)
+    {
+        present[nums[i]] = true;
+    }
+
+    int missingNumber = 1;
+    while (present[missingNumber])
+    {
+        missingNumber++;
+    }
+
+    int duplicateNumber = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (present[nums[i]] == true && nums[i] != missingNumber)
+        {
+            duplicateNumber = nums[i];
+            break;
+        }
+    }
+
+    return {duplicateNumber, missingNumber};
+}
+
+int main()
+{
+    vector<int> nums = {1, 2, 2, 4};
+
+    vector<int> result = findDuplicateAndMissingNumber(nums);
+
+    cout << "The duplicate number is " << result[0] << endl;
+    cout << "The missing number is " << result[1] << endl;
+
+    return 0;
+}
