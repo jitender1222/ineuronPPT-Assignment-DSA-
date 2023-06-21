@@ -1,45 +1,57 @@
-
-
-// Solution
-
 #include <iostream>
-#include <vector>
 
-using namespace std;
-
-vector<vector<int>> transposeMatrix(vector<vector<int>> &matrix)
+struct Node
 {
-    int m = matrix.size();
-    int n = matrix[0].size();
+    int data;
+    Node *next;
+};
 
-    vector<vector<int>> transpose(n, vector<int>(m));
+int nthNodeFromEnd(Node *head, int n)
+{
+    if (head == nullptr)
+        return -1;
 
-    for (int i = 0; i < m; i++)
+    Node *slowPtr = head;
+    Node *fastPtr = head;
+
+    // Move the fast pointer n positions ahead
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
-        {
-            transpose[j][i] = matrix[i][j];
-        }
+        if (fastPtr == nullptr)
+            return -1; // Invalid value of n
+        fastPtr = fastPtr->next;
     }
 
-    return transpose;
+    // Move both pointers until the fast pointer reaches the end
+    while (fastPtr != nullptr)
+    {
+        slowPtr = slowPtr->next;
+        fastPtr = fastPtr->next;
+    }
+
+    if (slowPtr == nullptr)
+        return -1; // Invalid value of n
+    return slowPtr->data;
 }
 
 int main()
 {
-    vector<vector<int>> matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    Node *head = new Node{1, nullptr};
+    head->next = new Node{2, nullptr};
+    head->next->next = new Node{3, nullptr};
+    head->next->next->next = new Node{4, nullptr};
+    head->next->next->next->next = new Node{5, nullptr};
+    head->next->next->next->next->next = new Node{6, nullptr};
+    head->next->next->next->next->next->next = new Node{7, nullptr};
+    head->next->next->next->next->next->next->next = new Node{8, nullptr};
+    head->next->next->next->next->next->next->next->next = new Node{9, nullptr};
 
-    vector<vector<int>> transpose = transposeMatrix(matrix);
-
-    cout << "Transpose of matrix:" << endl;
-    for (const vector<int> &row : transpose)
-    {
-        for (int num : row)
-        {
-            cout << num << " ";
-        }
-        cout << endl;
-    }
+    int n = 2;
+    int result = nthNodeFromEnd(head, n);
+    if (result != -1)
+        std::cout << "Nth Node from the End: " << result << std::endl;
+    else
+        std::cout << "Invalid value of n!" << std::endl;
 
     return 0;
 }

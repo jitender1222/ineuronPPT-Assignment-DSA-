@@ -1,35 +1,71 @@
-
-
-// Solution
-
 #include <iostream>
-#include <vector>
 
-using namespace std;
-
-int maxCount(vector<vector<int>> &ops, int m, int n)
+struct Node
 {
-    int minRow = m;
-    int minCol = n;
+    int data;
+    Node *next;
+};
 
-    for (const vector<int> &op : ops)
+void alternateInsert(Node **first, Node **second)
+{
+    if (*first == nullptr || *second == nullptr)
+        return;
+
+    Node *firstCurr = *first;
+    Node *secondCurr = *second;
+    Node *firstNext;
+    Node *secondNext;
+
+    while (firstCurr != nullptr && secondCurr != nullptr)
     {
-        minRow = min(minRow, op[0]);
-        minCol = min(minCol, op[1]);
+        // Store the next pointers
+        firstNext = firstCurr->next;
+        secondNext = secondCurr->next;
+
+        // Make secondCurr as the next of firstCurr
+        secondCurr->next = firstNext;
+        firstCurr->next = secondCurr;
+
+        // Move pointers to the next positions
+        firstCurr = firstNext;
+        secondCurr = secondNext;
     }
 
-    return minRow * minCol;
+    // Update the head of the second list
+    *second = secondCurr;
+}
+
+void printList(Node *head)
+{
+    while (head != nullptr)
+    {
+        std::cout << head->data << " ";
+        head = head->next;
+    }
+    std::cout << std::endl;
 }
 
 int main()
 {
-    int m = 3;
-    int n = 3;
-    vector<vector<int>> ops = {{2, 2}, {3, 3}};
+    Node *first = new Node{1, nullptr};
+    first->next = new Node{3, nullptr};
+    first->next->next = new Node{5, nullptr};
 
-    int maxIntegers = maxCount(ops, m, n);
+    Node *second = new Node{2, nullptr};
+    second->next = new Node{4, nullptr};
+    second->next->next = new Node{6, nullptr};
 
-    cout << "Number of maximum integers: " << maxIntegers << endl;
+    std::cout << "First List: ";
+    printList(first);
+    std::cout << "Second List: ";
+    printList(second);
+
+    alternateInsert(&first, &second);
+
+    std::cout << "Modified First List: ";
+    printList(first);
+    std::cout << "Modified Second List: ";
+    printList(second);
 
     return 0;
 }

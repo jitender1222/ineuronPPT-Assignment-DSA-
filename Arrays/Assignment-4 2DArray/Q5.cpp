@@ -1,32 +1,75 @@
-
-
-// Solution
-
 #include <iostream>
+#include <unordered_set>
 
-using namespace std;
-
-int countCompleteRows(int n)
+struct Node
 {
-    int row = 0;
-    int coins = 0;
+    int data;
+    Node *next;
+};
 
-    while (coins <= n)
+void removeLoop(Node *head)
+{
+    if (head == nullptr || head->next == nullptr)
+        return;
+
+    Node *slowPtr = head;
+    Node *fastPtr = head;
+    Node *prev = nullptr;
+
+    while (fastPtr != nullptr && fastPtr->next != nullptr)
     {
-        row++;
-        coins += row;
+        fastPtr = fastPtr->next->next;
+        prev = slowPtr;
+        slowPtr = slowPtr->next;
+
+        if (slowPtr == fastPtr)
+            break;
     }
 
-    return row - 1;
+    // No loop found
+    if (slowPtr != fastPtr)
+        return;
+
+    // Move slowPtr to head and advance both pointers by one step until they meet at the loop start
+    slowPtr = head;
+    while (slowPtr->next != fastPtr->next)
+    {
+        slowPtr = slowPtr->next;
+        fastPtr = fastPtr->next;
+    }
+
+    // Break the loop
+    fastPtr->next = nullptr;
+}
+
+void printList(Node *head)
+{
+    while (head != nullptr)
+    {
+        std::cout << head->data << " ";
+        head = head->next;
+    }
+    std::cout << std::endl;
 }
 
 int main()
 {
-    int n = 5;
+    Node *head = new Node{1, nullptr};
+    head->next = new Node{2, nullptr};
+    head->next->next = new Node{3, nullptr};
+    head->next->next->next = new Node{4, nullptr};
+    head->next->next->next->next = new Node{5, nullptr};
 
-    int completeRows = countCompleteRows(n);
+    // Create a loop for testing
+    head->next->next->next->next->next = head->next->next;
 
-    cout << "Number of complete rows: " << completeRows << endl;
+    std::cout << "Before Removing Loop: ";
+    printList(head);
+
+    removeLoop(head);
+
+    std::cout << "After Removing Loop: ";
+    printList(head);
 
     return 0;
 }
