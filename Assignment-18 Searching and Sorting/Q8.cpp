@@ -8,7 +8,7 @@ bool find132pattern(vector<int> &nums)
 {
     int n = nums.size();
     stack<int> stk;
-    int s3 = INT_MIN;
+    int s3 = -9999;
 
     for (int i = n - 1; i >= 0; i--)
     {
