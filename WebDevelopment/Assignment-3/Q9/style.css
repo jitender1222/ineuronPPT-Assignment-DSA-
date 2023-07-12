@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+    margin-top: 1rem;
+}
+
+footer {
+    background-color: #0f0f0f;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 50vh;
+    padding: 5rem 3rem;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.box:first-child,
+.box:last-child {
+    width: 30%;
+}
+
+.box h2 {
+    margin-bottom: 10px;
+    color: whitesmoke;
+}
+
+.box p {
+    line-height: 1.6rem;
+    color: gray;
+    margin-top: 20px;
+}
+
+.box ul li {
+    list-style: none;
+    line-height: 2.5rem;
+    color: gray;
+}
+
+.input-box {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.input-box input {
+    padding: 0.6rem;
+    border-radius: 6px;
+}
+
+.input-box input::placeholder {
+    font-size: small;
+    color: gray;
+    text-align: center;
+}
+
+.input-box button {
+    background-color: #1778f2;
+    padding: 0.6rem;
+    border: none;
+    color: white;
+    font-size: small;
+    border-radius: 6px;
+}
+
+
+/* media queries for smaller devices */
+@media screen and (max-width:600px) {
+
+    h1 {
+        font-size: large;
+    }
+
+    footer {
+        margin-top: 10rem;
+        flex-direction: column;
+        position: relative;
+        height: auto;
+        gap: 50px;
+    }
+
+    .box:first-child,
+    .box:last-child {
+        width: 100%;
+    }
+
+    .input-box {
+        width: 100%;
+    }
+}

@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+}
+
+.dashboard {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.dashboard h1 {
+    margin-top: 2rem;
+    text-decoration: underline;
+    color: white;
+}
+
+table {
+    border: 2px solid white;
+    text-align: left;
+    width: 80vw;
+    margin: 5rem auto;
+    padding: 10px;
+}
+
+th {
+    color: white;
+    padding: 15px 0;
+}
+
+td {
+    width: 30%;
+    padding: 5px 0;
+    color: gray;
+}
+
+
+
+/* media queries for smaller devices */
+
+@media screen and (max-width:600px) {
+
+
+    .scroll {
+        overflow-y: scroll;
+    }
+
+    table {
+        width: 800px;
+    }
+
+    td,
+    th {
+        width: 100px;
+    }
+}
