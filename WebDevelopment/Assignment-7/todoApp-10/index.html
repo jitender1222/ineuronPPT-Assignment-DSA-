@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Todo App</h1>
+      <input type="text" id="taskInput" placeholder="Enter task..." />
+      <button onclick="addTask()">Submit</button>
+      <ul id="taskList"></ul>
+    </div>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Edit Todo</h2>
+        <input type="text" id="editTaskInput" placeholder="Enter task..." />
+        <button onclick="updateTask()">Update</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
